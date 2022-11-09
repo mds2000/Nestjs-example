@@ -10,26 +10,8 @@ import { TaskStatus } from './task-status.enum';
 export class TasksService {
   constructor(private readonly tasksRepository: TasksRepository) {}
 
-  getAllTasks(): Promise<Task[]> {
-    return this.tasksRepository.getAllTasks();
-  }
-
-  async getTasksWithFilter(
-    getTasksFilterDto: GetTasksFilterDto,
-  ): Promise<Task[]> {
-    const { status, search } = getTasksFilterDto;
-    let filteredTasks = await this.getAllTasks();
-    if (status) {
-      filteredTasks = filteredTasks.filter((tsk) => tsk.status === status);
-    }
-
-    if (search) {
-      filteredTasks = filteredTasks.filter(
-        (tsk) => tsk.title.includes(search) || tsk.description.includes(search),
-      );
-    }
-
-    return filteredTasks;
+  getAllTasks(getTasksFilterDto: GetTasksFilterDto): Promise<Task[]> {
+    return this.tasksRepository.getAllTasks(getTasksFilterDto);
   }
 
   async getTaskById(id: string): Promise<Task> {

@@ -24,11 +24,7 @@ export class TasksController {
   async getTasks(
     @Query() getTasksFilterDto: GetTasksFilterDto,
   ): Promise<Task[]> {
-    if (Object.keys(getTasksFilterDto).length > 0) {
-      return await this.tasksService.getTasksWithFilter(getTasksFilterDto);
-    }
-
-    return await this.tasksService.getAllTasks();
+    return await this.tasksService.getAllTasks(getTasksFilterDto);
   }
 
   @Get(':id')
@@ -56,6 +52,7 @@ export class TasksController {
     @Param('id') id: string,
     @Body('status') status: TaskStatus,
   ): Promise<Task> {
+    //TODO: verify correct TaskStatus
     return await this.tasksService.updateTaskStatusById(id, status);
   }
 }
