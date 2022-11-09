@@ -1,11 +1,7 @@
 import { IsEnum, IsNotEmpty, IsString, Length } from 'class-validator';
 import { TaskStatus } from '../task-status.enum';
 
-export class UpdateTaskDto {
-  @IsNotEmpty()
-  @IsString()
-  id: string;
-
+export class AddTaskDbDto {
   @IsNotEmpty()
   @IsString()
   @Length(1, 50)
